@@ -1,3 +1,4 @@
+@extends('layout')
 @section('body')
     <div class="row">
         <input type="text" name="transaksi_date" id="transaksi_date">

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('htrans', function (Blueprint $table) {
-            $table->integerIncrements("htrans_id");
+            $table->integerIncrements("htrans_id")->primary();
             $table->string("htrans_code", 250);
             $table->dateTime("htrans_date");
             $table->integer("htrans_customer")->unsigned();

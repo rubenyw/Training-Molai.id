@@ -52,4 +52,6 @@ class Htrans extends Model
         $code = "INV" . str_pad($data, 5, 0, STR_PAD_LEFT);
         return $code;
     }
+
+    function GetTransaction() {}
 }

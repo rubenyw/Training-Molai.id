@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dtrans', function (Blueprint $table) {
-            $table->integerIncrements("dtrans_id");
-            $table->integer("htrans_id")->unsigned();
-            $table->integer("barang_id");
-            $table->integer("barang_name", 250);
+            $table->increments("dtrans_id");
+            $table->unsignedInteger("htrans_id");
+            $table->foreign("htrans_id")->references("htrans_id")->on("htrans");
+            $table->unsignedInteger("barang_id");
+            $table->foreign("barang_id")->references("barang_id")->on("barangs");
+            $table->string("barang_name", 250);
             $table->integer("barang_price");
             $table->integer("barang_count");
             $table->integer("subtotal");
