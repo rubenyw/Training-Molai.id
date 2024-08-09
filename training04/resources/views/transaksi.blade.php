@@ -8,6 +8,11 @@
 <script>
     var barang = @json($barang);
     var transaksi = [];
+    $("#transaksi_tanggal, #dtransaksi_tanggal").val(getCurrentDate());
+
+    $(document).on("submit", "", function() {
+        
+    })
 
     $(document).on("click", "#btn-tambah", function(){
         var index = $('#barang').val();
