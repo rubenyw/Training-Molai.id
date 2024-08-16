@@ -84,34 +84,29 @@
                 success: function(data) {
                     console.log(data);
                     
-                    $("#row-meja").html("");
+                    $("#row-menu").html("");
                     data.forEach(element => {
-                        console.log(element);
                         
                         let $newCard = $(`
-                            <div class="col-4 mb-3 text-center">
-                                <div class="card mx-auto" style="width: 18rem; height: 9rem;">
-                                    <div class="card-body">
-                                    <h5 class="card-title">${element.meja_name}</h5>
-                                        <div class="row h-75 align-items-end">
-                                            ${element.meja_available == 1? 
-                                            '<div class="col-12"><button type-"button" class="btn btn-primary">Pesan</button></div' :
-                                            `
-                                            <div class="col-6">
-                                                <button type-"button" class="btn btn-primary">Pesan</button>
+                            <div class="col-4">
+                                <div class="card mb-3 mx-auto g-col-4" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="{{ asset('upload/menu/${element.menu_picture}') }}" class="img-fluid rounded-start" style="width: 10rem; height: 10rem;" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                            <h4 class="card-title">${element.menu_name}</h4>
+                                            <p class="card-text">${formatRupiah(element.menu_price)}</p>
+                                            <p class="card-text mt-5"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                                             </div>
-                                            <div class="col-6">
-                                                <button type-"button" class="btn btn-primary">Pesan</button>
-                                            </div>
-                                            `    
-                                            }
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         `);
 
-                        $("#row-meja").append($newCard);
+                        $("#row-menu").append($newCard);
                     });
                 },
                 error: function(xhr) {
@@ -150,7 +145,8 @@
             formData.append('menu_price', convertToAngka($("#menu_price").val()));
             formData.append('menu_picture', $("#menu_picture")[0].files[0]);
             formData.append('_token', token);
-
+            console.log(formData);
+            
             $(this).attr("disabled", true);
 
             $.ajax({
