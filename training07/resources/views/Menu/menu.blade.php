@@ -16,13 +16,13 @@
                 <div class="card mb-3 mx-auto g-col-4" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
+                            <img src="{{ asset('img/nasi.png') }}" class="img-fluid rounded-start" style="width: 10rem; height: 10rem;" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                            <h4 class="card-title">Nasi</h4>
+                            <p class="card-text">Rp 1.000</p>
+                            <p class="card-text mt-5"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                             </div>
                         </div>
                     </div>
@@ -36,18 +36,22 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">New Table</h5>
+                    <h5 class="modal-title">New Menu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="" class="form-label">Table Name</label>
-                            <input type="text" name="meja_name" id="meja_name" class="form-control">
+                            <label for="" class="form-label">Menu Name</label>
+                            <input type="text" name="menu_name" id="menu_name" class="form-control">
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="" class="form-label">Table Capacity</label>
-                            <input type="text" name="meja_capacity" id="meja_capacity" class="form-control number-only">
+                            <label for="" class="form-label">Menu Price</label>
+                            <input type="text" name="menu_price" id="menu_price" class="form-control number-only nominal">
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="" class="form-label">Menu Picture</label>
+                            <input type="file" name="menu_picture" id="menu_picture" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -75,7 +79,7 @@
 
         function RefreshData() {
             $.ajax({
-                url: "/getTable",
+                url: "/getMenu",
                 method: "GET",
                 success: function(data) {
                     console.log(data);
@@ -140,17 +144,25 @@
                 toastr.error("Silahkan cek kembali inputan anda", "Gagal Insert");
             };
 
+            let formData = new FormData();
+
+            formData.append('menu_name', $("#menu_name").val());
+            formData.append('menu_price', convertToAngka($("#menu_price").val()));
+            formData.append('menu_picture', $("#menu_picture")[0].files[0]);
+            formData.append('_token', token);
+
+            $(this).attr("disabled", true);
+
             $.ajax({
-                url: "/insertTable",
+                url: "/insertMenu",
                 method: "POST",
-                data: {
-                    meja_name: $("#meja_name").val(),
-                    meja_capacity: $("#meja_capacity").val(),
-                    _token: token
-                },
+                contentType: false,
+                processData: false,
+                data: formData,
                 success: function(e) {
                     toastr.success("Data berhasil di insert", "Success");
                     $("#modal-insert").modal("hide");
+                    $("#btn-submit").attr("disabled", false);
                     RefreshData();
                 },
                 error: function(e) {

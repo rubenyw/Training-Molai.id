@@ -24,7 +24,10 @@ class Menu extends Model
         $newMenu = new Menu();
         $newMenu->menu_name = $data["menu_name"];
         $newMenu->menu_price = $data["menu_price"];
-        $newMenu->menu_picture = $data["menu_picture"];
+
+        $fileName = $this->insertFile($data["menu_picture"], "menu");
+        $newMenu->menu_picture = $fileName;
+
         $newMenu->save();
     }
 
@@ -42,5 +45,17 @@ class Menu extends Model
         $updateMenu = menu::find($menu_id);
         $updateMenu->status = 0;
         $updateMenu->save();
+    }
+
+    function insertFile($file, $folder)
+    {
+        try {
+            $fileName = uniqid() . "." . $file->extension(); //nama baru
+            $path = "/upload/" . $folder . "/";
+            $file->move(public_path($path), $fileName);
+            return $fileName;
+        } catch (\Throwable $th) {
+            return -1;
+        }
     }
 }
