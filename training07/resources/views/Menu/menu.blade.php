@@ -100,7 +100,7 @@
                                             <div class="card-body">
                                             <h4 class="card-title">${element.menu_name}</h4>
                                             <p class="card-text">${formatRupiah(element.menu_price)}</p>
-                                            <p class="card-text mt-5" idx="${element.menu_id}">
+                                            <p class="card-text mt-4" idx="${element.menu_id}">
                                                 ${element.menu_available == 1 ? 
                                                 `<button class="btn btn-danger">Habis</button>` : 
                                                 '<button class="btn btn-success">Ada</button>'

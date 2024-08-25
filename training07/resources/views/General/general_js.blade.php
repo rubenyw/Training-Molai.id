@@ -39,4 +39,6 @@
     $(document).on("keyup", ".nominal", function() {
         $(this).val(formatRupiah(convertToAngka($(this).val()),"Rp."));
     });
+
+    
 </script>
